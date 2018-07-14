@@ -13,34 +13,44 @@ void setup() {
 
   Serial.begin(9600); //baud rate
   Serial.println("Ready to go!");
-  }
 
+ 
+  }
+int realspeed = 100;
 void loop() {
   // put your main code here, to run repeatedly:
-
+ 
   if(Serial.available()){
     
      char key = Serial.read();
      Serial.println(key);
+     Serial.println(realspeed);
      if(key=='w'){
-       moveA(125,false);
-       moveB(135,true);//they are different because the motors are flipped so if they were the same it would turn
+       moveA(realspeed,false);
+       moveB(realspeed,true);//they are different because the motors are flipped so if they were the same it would turn
       } 
      else if(key =='a'){
-      moveA(125,false);
-      moveB(125,false);
+      moveA(realspeed,false);
+      moveB(realspeed,false);
       }
      else if(key =='d'){
-      moveB(125,true);
-      moveA(125,true);      
+      moveB(realspeed,true);
+      moveA(realspeed,true);      
       }
      else if(key == 's'){
-      moveA(125,true);
-      moveB(125,false);
+      moveA(realspeed,true);
+      moveB(realspeed,false);
       }
      else if(key == 'k'){
       moveA(0,true);
       moveB(0,false);
+      
+    } else if(key == 'o') {
+      if(realspeed <= 235) realspeed += 20;
+    } else if(key == 'p') {
+      if(realspeed >= 80){
+        realspeed -= 20;
+      }
     }
   }
 }
